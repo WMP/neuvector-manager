@@ -11,7 +11,7 @@
     mat-button
     type="button"
     (click)="downloadSpdx()"
-    [disabled]="downloading">
+    [disabled]="downloading || !cdxText">
     <em class="fa fa-download pe-1"></em>
     {{ 'sbom.DOWNLOAD_SPDX' | translate }}
   </button>

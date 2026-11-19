@@ -154,16 +154,12 @@ export class SbomPanelComponent implements OnInit, OnChanges, OnDestroy {
           sbomFileName(this.name, 'spdx')
         );
       },
-      error: ({ error }) => {
+      error: err => {
         this.downloading = false;
         this.cd.markForCheck();
-        let body = error;
-        try {
-          // responseType 'text' leaves the JSON error body unparsed
-          body = JSON.parse(error);
-        } catch {}
+        // getErrorMessage parses the text body and sanitizes it
         this.notificationService.openError(
-          body,
+          err,
           this.translate.instant('sbom.LOAD_ERR')
         );
       },
