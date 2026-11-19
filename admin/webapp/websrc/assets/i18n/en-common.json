@@ -3619,6 +3619,7 @@
       "SECRET_REQUIRED_ENDPOINT": "The endpoint changed. Enter the secret again or remove it.",
       "DELETE_UNUSED": "Delete unused SBOMs",
       "DELETE_WARNING": "Warning: after the grace period, the controller deletes objects of images that are no longer in any registry or running workload. In a shared bucket, use a unique prefix.",
+      "DELETE_CONFIRM": "Delete SBOM objects of images that are no longer in a registry or a running workload after the grace period? Deleted objects cannot be restored.",
       "GRACE": "Grace period (minutes)",
       "GRACE_HINT": "0 = 1440 (24 h). Maximum 525600.",
       "SAVE": "Save",

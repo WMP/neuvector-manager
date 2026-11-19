@@ -6,6 +6,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import { TranslateService } from '@ngx-translate/core';
 import { saveAs } from 'file-saver';
@@ -15,6 +16,7 @@ import { AuthUtilsService } from '@common/utils/auth.utils';
 import { GlobalVariable } from '@common/variables/global.variable';
 import { NotificationService } from '@services/notification.service';
 import { sbomFileName } from '@routes/components/sbom-panel/sbom-panel.component';
+import { ConfirmDialogComponent } from '@components/ui/confirm-dialog/confirm-dialog.component';
 
 export interface S3Config {
   enabled: boolean;
@@ -133,8 +135,11 @@ export class SbomStorageComponent implements OnInit {
     {
       field: 'size',
       headerKey: 'sbom.s3.COL_SIZE',
+      // BytesPipe has no unit below 1 KiB and returns '' for 0
       valueFormatter: p =>
-        new BytesPipe().transform(String(p.value)) || `${p.value ?? 0} B`,
+        (p.value || 0) < 1024
+          ? `${p.value || 0} B`
+          : new BytesPipe().transform(String(p.value)),
     },
     {
       field: 'last_modified',
@@ -152,7 +157,8 @@ export class SbomStorageComponent implements OnInit {
   constructor(
     private tr: TranslateService,
     private notificationService: NotificationService,
-    private authUtils: AuthUtilsService
+    private authUtils: AuthUtilsService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -253,6 +259,25 @@ export class SbomStorageComponent implements OnInit {
 
   save(): void {
     if (this.form.invalid || this.saving) return;
+    // turning deletion on removes objects from the bucket: confirm it first
+    if (this.form.value.delete_unused && !this.loaded?.delete_unused) {
+      this.dialog
+        .open(ConfirmDialogComponent, {
+          width: '80%',
+          maxWidth: '600px',
+          data: {
+            message: this.tr.instant('sbom.s3.DELETE_CONFIRM'),
+            isSync: true,
+          },
+        })
+        .afterClosed()
+        .subscribe(ok => ok && this.patch());
+      return;
+    }
+    this.patch();
+  }
+
+  private patch(): void {
     this.saving = true;
     GlobalVariable.http
       .patch(

@@ -8,6 +8,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmDialogModule } from '@components/ui/confirm-dialog/confirm-dialog.module';
 import { LoadingTemplateModule } from '@components/ui/loading-template/loading-template.module';
 import { SbomStorageComponent } from './sbom-storage.component';
 
@@ -29,6 +31,8 @@ const routes: Routes = [
     MatButtonModule,
     MatSlideToggleModule,
     LoadingTemplateModule,
+    MatDialogModule,
+    ConfirmDialogModule,
   ],
 })
 export class SbomStorageModule {}

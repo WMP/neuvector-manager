@@ -60,6 +60,8 @@ describe('SbomStorageComponent', () => {
   let patch: jasmine.Spy;
   let open: jasmine.Spy;
   let openError: jasmine.Spy;
+  let dialogResult: boolean;
+  let dialog: { open: jasmine.Spy };
 
   const make = (allowed: string[]) =>
     new SbomStorageComponent(
@@ -67,7 +69,8 @@ describe('SbomStorageComponent', () => {
       { open, openError } as any,
       {
         getDisplayFlagByMultiPermission: (p: string) => allowed.includes(p),
-      } as any
+      } as any,
+      dialog as any
     );
 
   beforeEach(() => {
@@ -80,6 +83,12 @@ describe('SbomStorageComponent', () => {
     open = jasmine.createSpy('open');
     openError = jasmine.createSpy('openError');
     GlobalVariable.http = { get, patch } as any;
+    dialogResult = false;
+    dialog = {
+      open: jasmine
+        .createSpy('dialogOpen')
+        .and.callFake(() => ({ afterClosed: () => of(dialogResult) })),
+    };
   });
 
   it('loads config (0 shown as 1440) and list', () => {
@@ -143,6 +152,25 @@ describe('SbomStorageComponent', () => {
     expect('secret_key' in patch.calls.mostRecent().args[1].config).toBeFalse();
     expect(open).toHaveBeenCalled();
     expect(get.calls.allArgs().filter(a => a[0] === 'sbom/s3').length).toBe(2);
+  });
+
+  it('asks before turning on delete_unused', () => {
+    const c = make(['write_sbom']);
+    c.ngOnInit();
+    c.form.controls.delete_unused.setValue(true);
+    c.save();
+    expect(dialog.open).toHaveBeenCalled();
+    expect(patch).not.toHaveBeenCalled();
+    dialogResult = true;
+    c.save();
+    expect(patch.calls.mostRecent().args[1].config.delete_unused).toBeTrue();
+  });
+
+  it('formats sizes with a unit', () => {
+    const c = make([]);
+    const size = c.columnDefs.find(d => d.field === 'size') as any;
+    expect(size.valueFormatter({ value: 0 })).toBe('0 B');
+    expect(size.valueFormatter({ value: 900 })).toBe('900 B');
   });
 
   it('reports save and list errors', () => {
