@@ -1,0 +1,133 @@
+<h1 class="font-weight-light">
+  <a [routerLink]="['../']" class="font-weight-light">
+    {{ 'sidebar.nav.SETTING' | translate }}
+  </a>
+  > {{ 'sbom.dtrack.TITLE' | translate }}
+</h1>
+<mat-card>
+  <app-loading-template *ngIf="loading; else content"></app-loading-template>
+  <ng-template #content>
+    <form *ngIf="loaded" [formGroup]="form" (ngSubmit)="save()">
+      <div class="my-2">
+        <mat-slide-toggle formControlName="enabled">
+          {{ 'sbom.dtrack.ENABLED' | translate }}
+        </mat-slide-toggle>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <mat-form-field class="w-100">
+            <mat-label>{{ 'sbom.dtrack.URL' | translate }}</mat-label>
+            <input matInput formControlName="url" />
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-md-6">
+          <mat-form-field class="w-100">
+            <mat-label>{{ 'sbom.dtrack.API_KEY' | translate }}</mat-label>
+            <input
+              matInput
+              type="password"
+              autocomplete="new-password"
+              formControlName="api_key" />
+            <mat-hint *ngIf="removeKey">{{
+              'sbom.dtrack.KEY_REMOVED_ON_SAVE' | translate
+            }}</mat-hint>
+            <mat-hint *ngIf="!removeKey && loaded.api_key_set">{{
+              'sbom.dtrack.KEY_SAVED' | translate
+            }}</mat-hint>
+            <mat-error *ngIf="urlChanged">{{
+              'sbom.dtrack.KEY_REQUIRED_URL' | translate
+            }}</mat-error>
+          </mat-form-field>
+          <button
+            *ngIf="canWrite && loaded.api_key_set && !removeKey"
+            mat-stroked-button
+            type="button"
+            (click)="markRemoveKey()">
+            {{ 'sbom.dtrack.REMOVE_KEY' | translate }}
+          </button>
+        </div>
+        <div class="col-12 col-md-6">
+          <mat-form-field class="w-100">
+            <mat-label>{{ 'sbom.dtrack.PROJECT_NAME' | translate }}</mat-label>
+            <input matInput formControlName="project_name" />
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-md-6">
+          <mat-form-field class="w-100">
+            <mat-label>{{
+              'sbom.dtrack.PROJECT_VERSION' | translate
+            }}</mat-label>
+            <input matInput formControlName="project_version" />
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-md-6">
+          <mat-form-field class="w-100">
+            <mat-label>{{ 'sbom.dtrack.TAGS' | translate }}</mat-label>
+            <input matInput formControlName="tags" />
+            <mat-hint>{{ 'sbom.dtrack.TAGS_HINT' | translate }}</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-md-6">
+          <mat-form-field class="w-100">
+            <mat-label>{{
+              'sbom.dtrack.INACTIVE_GRACE' | translate
+            }}</mat-label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              formControlName="inactive_grace_period" />
+          </mat-form-field>
+        </div>
+      </div>
+      <button
+        *ngIf="canWrite"
+        mat-flat-button
+        color="primary"
+        type="submit"
+        [disabled]="form.invalid || saving">
+        {{ 'sbom.dtrack.SAVE' | translate }}
+      </button>
+    </form>
+
+    <div *ngIf="canWrite" class="d-flex align-items-center flex-wrap my-3">
+      <mat-form-field class="me-3">
+        <mat-label>{{ 'sbom.dtrack.PREVIEW_WORKLOAD' | translate }}</mat-label>
+        <mat-select [formControl]="workloadCtrl">
+          <mat-option *ngFor="let w of workloads" [value]="w.id">
+            {{ w.name }} ({{ w.domain }})
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button
+        mat-stroked-button
+        type="button"
+        [disabled]="!workloadCtrl.value || previewing"
+        (click)="runPreview()">
+        {{ 'sbom.dtrack.PREVIEW' | translate }}
+      </button>
+    </div>
+    <div *ngIf="preview">
+      <div *ngIf="preview.skipped_reason">
+        {{ 'sbom.dtrack.SKIPPED' | translate }}: {{ preview.skipped_reason }}
+      </div>
+      <div>
+        {{ 'sbom.dtrack.PROJECT_NAME' | translate }}: {{ preview.project_name }}
+      </div>
+      <div>
+        {{ 'sbom.dtrack.PROJECT_VERSION' | translate }}:
+        {{ preview.project_version }}
+      </div>
+      <div>
+        {{ 'sbom.dtrack.TAGS' | translate }}: {{ preview.tags.join(', ') }}
+      </div>
+    </div>
+
+    <ul class="dtrack__help mt-3">
+      <li>{{ 'sbom.dtrack.SYMBOLS' | translate }}</li>
+      <li>{{ 'sbom.dtrack.HELP_TAGS_LOWERCASE' | translate }}</li>
+      <li>{{ 'sbom.dtrack.HELP_KEY_PERMISSIONS' | translate }}</li>
+      <li>{{ 'sbom.dtrack.HELP_MIN_VERSION' | translate }}</li>
+    </ul>
+  </ng-template>
+</mat-card>

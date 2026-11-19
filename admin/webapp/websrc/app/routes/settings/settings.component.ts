@@ -14,6 +14,7 @@ export class SettingsComponent implements OnInit {
   isConfigAuth!: boolean;
   isAuthenticationAuth!: boolean;
   isNamespaceUser!: boolean;
+  canReadSbom!: boolean;
 
   get isWorker() {
     return GlobalVariable.isRemote;
@@ -50,6 +51,10 @@ export class SettingsComponent implements OnInit {
     this.isConfigAuth = this.authUtils.getDisplayFlag('read_config');
     this.isAuthenticationAuth =
       this.authUtils.getDisplayFlag('read_auth_server');
+    // Dependency-Track endpoints accept only global sbom permissions.
+    this.canReadSbom =
+      this.authUtils.getDisplayFlagByMultiPermission('sbom_global_read') ||
+      this.authUtils.getDisplayFlagByMultiPermission('write_sbom');
     this.isNamespaceUser = this.authUtils.userPermission.isNamespaceUser;
   }
 

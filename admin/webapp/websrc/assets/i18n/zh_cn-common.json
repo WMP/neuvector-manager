@@ -3565,7 +3565,35 @@
     "IMAGES": "镜像",
     "REGISTRY": "仓库",
     "WORKLOADS": "Pod",
-    "COMPONENTS_FOUND": "组件"
+    "COMPONENTS_FOUND": "组件",
+    "dtrack": {
+      "TITLE": "Dependency-Track",
+      "DESCRIPTION": "将运行中容器的 SBOM 发送到 Dependency-Track。",
+      "ENABLED": "启用导出",
+      "URL": "Dependency-Track 地址",
+      "API_KEY": "API 密钥",
+      "KEY_SAVED": "API 密钥已保存",
+      "REMOVE_KEY": "删除密钥",
+      "KEY_REMOVED_ON_SAVE": "保存时将删除该密钥。",
+      "KEY_REQUIRED_URL": "更改地址时，请重新输入 API 密钥。",
+      "PROJECT_NAME": "项目名称",
+      "PROJECT_VERSION": "项目版本",
+      "TAGS": "标签",
+      "TAGS_HINT": "用逗号分隔标签。标签不能包含逗号。",
+      "INACTIVE_GRACE": "超过此时间后标记为非活动（分钟）",
+      "SAVE": "保存",
+      "SAVE_OK": "Dependency-Track 设置已保存。",
+      "SAVE_ERR": "无法保存 Dependency-Track 设置",
+      "LOAD_ERR": "无法加载 Dependency-Track 设置",
+      "PREVIEW": "预览",
+      "PREVIEW_WORKLOAD": "用于预览的 Pod",
+      "PREVIEW_ERR": "无法预览项目",
+      "SKIPPED": "已跳过",
+      "SYMBOLS": "可在项目名称、版本和标签中使用以下符号：{cluster}、{namespace}、{replicaset}、{service}、{pod}、{container}、{image}、{digest}、{pod.metadata.labels.KEY}、{namespace.metadata.labels.KEY}。",
+      "HELP_TAGS_LOWERCASE": "Dependency-Track 会将标签名称转换为小写。",
+      "HELP_KEY_PERMISSIONS": "API 密钥需要以下权限：BOM_UPLOAD、PROJECT_CREATION_UPLOAD、VIEW_PORTFOLIO 和 PORTFOLIO_MANAGEMENT。",
+      "HELP_MIN_VERSION": "Dependency-Track 的最低版本为 4.12.0。"
+    }
   },
   "vulnerability": {
     "advanced_filter": {

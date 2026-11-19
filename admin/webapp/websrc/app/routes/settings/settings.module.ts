@@ -32,6 +32,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./openid/openid.module').then(m => m.OpenidModule),
   },
+  {
+    path: 'dependency-track',
+    loadChildren: () =>
+      import('./dependency-track/dependency-track.module').then(
+        m => m.DependencyTrackModule
+      ),
+  },
   { path: '**', redirectTo: '' },
 ];
 

@@ -49,6 +49,8 @@ export class MapConstant {
     write_vuls_profile: ['vulnerability_w'],
     vuls_profile: ['vulnerability_w', 'vulnerability_r'],
     sbom: ['sbom_r', 'sbom_w'],
+    sbom_global_read: ['sbom_r'],
+    write_sbom: ['sbom_w'],
   };
 
   public static EDGE_STATUS_MAP = {

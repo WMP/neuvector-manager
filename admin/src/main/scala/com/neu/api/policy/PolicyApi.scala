@@ -216,6 +216,31 @@ class PolicyApi(resourceService: PolicyService) extends BaseApi {
             }
           }
         } ~
+        pathPrefix("sbom") {
+          path("dependency_track") {
+            get {
+              Utils.respondWithWebServerHeaders() {
+                resourceService.getDependencyTrack(tokenId)
+              }
+            } ~
+            patch {
+              entity(as[String]) { body =>
+                Utils.respondWithWebServerHeaders() {
+                  resourceService.updateDependencyTrack(tokenId, body)
+                }
+              }
+            }
+          } ~
+          path("dependency_track" / "preview") {
+            post {
+              entity(as[String]) { body =>
+                Utils.respondWithWebServerHeaders() {
+                  resourceService.previewDependencyTrack(tokenId, body)
+                }
+              }
+            }
+          }
+        } ~
         pathPrefix("scan") {
           path("status") {
             get {

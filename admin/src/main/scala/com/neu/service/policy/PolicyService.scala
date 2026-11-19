@@ -786,6 +786,37 @@ class PolicyService() extends BaseService with DefaultJsonFormats with LazyLoggi
     RestClient.httpRequestWithHeader(url, GET, "", tokenId)
   }
 
+  // The body holds the Dependency-Track API key, so it is never logged.
+  def getDependencyTrack(tokenId: String): Route = complete {
+    logger.info("Getting Dependency-Track config")
+    RestClient.httpRequestWithHeader(
+      s"${baseClusterUri(tokenId)}/sbom/dependency_track",
+      GET,
+      "",
+      tokenId
+    )
+  }
+
+  def updateDependencyTrack(tokenId: String, body: String): Route = complete {
+    logger.info("Updating Dependency-Track config")
+    RestClient.httpRequestWithHeader(
+      s"${baseClusterUri(tokenId)}/sbom/dependency_track",
+      PATCH,
+      body,
+      tokenId
+    )
+  }
+
+  def previewDependencyTrack(tokenId: String, body: String): Route = complete {
+    logger.info("Previewing Dependency-Track project")
+    RestClient.httpRequestWithHeader(
+      s"${baseClusterUri(tokenId)}/sbom/dependency_track/preview",
+      POST,
+      body,
+      tokenId
+    )
+  }
+
   def getRegistryTypes(tokenId: String): Route = complete {
     logger.info("Getting registry types")
     RestClient.httpRequestWithHeader(

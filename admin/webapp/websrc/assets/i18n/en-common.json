@@ -3571,7 +3571,35 @@
     "IMAGES": "Images",
     "REGISTRY": "Registry",
     "WORKLOADS": "Pods",
-    "COMPONENTS_FOUND": "Components"
+    "COMPONENTS_FOUND": "Components",
+    "dtrack": {
+      "TITLE": "Dependency-Track",
+      "DESCRIPTION": "Send SBOMs of running containers to Dependency-Track.",
+      "ENABLED": "Enable the export",
+      "URL": "Dependency-Track URL",
+      "API_KEY": "API key",
+      "KEY_SAVED": "API key saved",
+      "REMOVE_KEY": "Remove key",
+      "KEY_REMOVED_ON_SAVE": "The key will be removed when you save.",
+      "KEY_REQUIRED_URL": "Enter the API key again when you change the URL.",
+      "PROJECT_NAME": "Project name",
+      "PROJECT_VERSION": "Project version",
+      "TAGS": "Tags",
+      "TAGS_HINT": "Separate tags with commas. A tag cannot contain a comma.",
+      "INACTIVE_GRACE": "Mark as inactive after (minutes)",
+      "SAVE": "Save",
+      "SAVE_OK": "Dependency-Track settings saved.",
+      "SAVE_ERR": "Cannot save the Dependency-Track settings",
+      "LOAD_ERR": "Cannot load the Dependency-Track settings",
+      "PREVIEW": "Preview",
+      "PREVIEW_WORKLOAD": "Pod for the preview",
+      "PREVIEW_ERR": "Cannot preview the project",
+      "SKIPPED": "Skipped",
+      "SYMBOLS": "You can use these symbols in the project name, version and tags: {cluster}, {namespace}, {replicaset}, {service}, {pod}, {container}, {image}, {digest}, {pod.metadata.labels.KEY}, {namespace.metadata.labels.KEY}.",
+      "HELP_TAGS_LOWERCASE": "Dependency-Track stores tag names in lower case.",
+      "HELP_KEY_PERMISSIONS": "The API key needs these permissions: BOM_UPLOAD, PROJECT_CREATION_UPLOAD, VIEW_PORTFOLIO and PORTFOLIO_MANAGEMENT.",
+      "HELP_MIN_VERSION": "The minimum Dependency-Track version is 4.12.0."
+    }
   },
   "vulnerability": {
     "advanced_filter": {
