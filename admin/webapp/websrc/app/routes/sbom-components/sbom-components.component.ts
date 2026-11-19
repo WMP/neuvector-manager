@@ -125,6 +125,8 @@ export class SbomComponentsComponent {
       if (v?.trim()) params[k] = v.trim();
     });
     this.searching = true;
+    // never show the previous results under a new query
+    this.searched = false;
     GlobalVariable.http
       .get<any>(PathConstant.SBOM_COMPONENT_URL, { params })
       .subscribe({

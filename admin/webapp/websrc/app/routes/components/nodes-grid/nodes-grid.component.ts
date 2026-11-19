@@ -203,10 +203,16 @@ export class NodesGridComponent implements OnInit {
     }
     this.gridApi.sizeColumnsToFit();
     const node =
-      this.gridApi.getRowNode(this.linkedNode) ||
-      this.gridApi.getDisplayedRowAtIndex(0);
+      this.takeLinked(this.gridApi) || this.gridApi.getDisplayedRowAtIndex(0);
     node?.setSelected(true);
     if (node) this.gridApi.ensureNodeVisible(node, 'middle');
+  }
+
+  // the linked node wins once; later updates keep the normal selection rules
+  private takeLinked(api: GridApi) {
+    const node = this.linkedNode ? api.getRowNode(this.linkedNode) : undefined;
+    if (node) this.linkedNode = '';
+    return node;
   }
 
   onRowSelected(params: RowSelectedEvent) {
@@ -219,8 +225,7 @@ export class NodesGridComponent implements OnInit {
     const selected = this.selectedNodeSubject$.value,
       node = selected
         ? event.api.getRowNode(selected.id)
-        : event.api.getRowNode(this.linkedNode) ||
-          event.api.getDisplayedRowAtIndex(0);
+        : this.takeLinked(event.api) || event.api.getDisplayedRowAtIndex(0);
     node?.setSelected(true);
     setTimeout(() => {
       this.gridApi.ensureNodeVisible(node, 'middle');
