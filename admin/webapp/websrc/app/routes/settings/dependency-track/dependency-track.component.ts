@@ -74,13 +74,13 @@ export class DependencyTrackComponent implements OnInit {
     inactive_grace_period: new FormControl(1440, [
       Validators.required,
       Validators.min(0),
+      Validators.pattern(/^\d+$/),
     ]),
   });
   loaded: DtrackConfig | null = null;
   loading = true;
   saving = false;
   removeKey = false;
-  canRead = false;
   canWrite = false;
   workloads: { id: string; name: string; domain: string }[] = [];
   workloadCtrl = new FormControl('');
@@ -103,9 +103,6 @@ export class DependencyTrackComponent implements OnInit {
     // Global sbom permission only; namespace users get 403 from the controller.
     this.canWrite =
       this.authUtils.getDisplayFlagByMultiPermission('write_sbom');
-    this.canRead =
-      this.canWrite ||
-      this.authUtils.getDisplayFlagByMultiPermission('sbom_global_read');
     this.form.controls.url.valueChanges.subscribe(() =>
       this.form.controls.api_key.updateValueAndValidity()
     );
@@ -113,19 +110,18 @@ export class DependencyTrackComponent implements OnInit {
     if (this.canWrite) this.loadWorkloads();
   }
 
-  // A changed URL needs the key again, so the old key cannot go to another host.
-  private keyRequired(c: AbstractControl): ValidationErrors | null {
-    const url = c.parent?.get('url')?.value;
-    return this.loaded && (url || '').trim() !== this.loaded.url && !c.value
-      ? { required: true }
-      : null;
-  }
-
-  get urlChanged(): boolean {
+  // Same rule as the controller: a saved key must not follow a changed URL to
+  // another host, so the request needs a new key or an explicit removal.
+  get keyNeeded(): boolean {
     return (
-      !!this.loaded &&
+      !!this.loaded?.api_key_set &&
+      !this.removeKey &&
       (this.form.controls.url.value || '').trim() !== this.loaded.url
     );
+  }
+
+  private keyRequired(c: AbstractControl): ValidationErrors | null {
+    return c.parent && this.keyNeeded && !c.value ? { required: true } : null;
   }
 
   load(): void {

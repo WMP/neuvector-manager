@@ -84,6 +84,18 @@ describe('DependencyTrackComponent', () => {
     expect(comp.form.controls.api_key.valid).toBeTrue();
   });
 
+  it('does not require the key after Remove key or without a saved key', () => {
+    comp.form.controls.url.setValue('');
+    comp.markRemoveKey();
+    expect(comp.form.controls.api_key.valid).toBeTrue();
+    expect(comp.form.invalid).toBeFalse();
+
+    get.and.returnValue(of({ config: { ...cfg, api_key_set: false } }));
+    comp.load();
+    comp.form.controls.url.setValue('https://other.example');
+    expect(comp.form.controls.api_key.valid).toBeTrue();
+  });
+
   it('saves with PATCH and reloads', () => {
     comp.save();
     expect(patch.calls.mostRecent().args[0]).toBe('sbom/dependency_track');

@@ -3592,7 +3592,7 @@
       "SAVE_ERR": "Cannot save the Dependency-Track settings",
       "LOAD_ERR": "Cannot load the Dependency-Track settings",
       "PREVIEW": "Preview",
-      "PREVIEW_WORKLOAD": "Pod for the preview",
+      "PREVIEW_WORKLOAD": "Container for the preview",
       "PREVIEW_ERR": "Cannot preview the project",
       "SKIPPED": "Skipped",
       "SYMBOLS": "You can use these symbols in the project name, version and tags: {cluster}, {namespace}, {replicaset}, {service}, {pod}, {container}, {image}, {digest}, {pod.metadata.labels.KEY}, {namespace.metadata.labels.KEY}.",

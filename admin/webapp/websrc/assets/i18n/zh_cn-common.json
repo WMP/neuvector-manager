@@ -3586,7 +3586,7 @@
       "SAVE_ERR": "无法保存 Dependency-Track 设置",
       "LOAD_ERR": "无法加载 Dependency-Track 设置",
       "PREVIEW": "预览",
-      "PREVIEW_WORKLOAD": "用于预览的 Pod",
+      "PREVIEW_WORKLOAD": "用于预览的容器",
       "PREVIEW_ERR": "无法预览项目",
       "SKIPPED": "已跳过",
       "SYMBOLS": "可在项目名称、版本和标签中使用以下符号：{cluster}、{namespace}、{replicaset}、{service}、{pod}、{container}、{image}、{digest}、{pod.metadata.labels.KEY}、{namespace.metadata.labels.KEY}。",
