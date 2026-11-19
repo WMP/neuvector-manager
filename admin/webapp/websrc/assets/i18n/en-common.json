@@ -3552,7 +3552,8 @@
     "RUNTIME_HINT": "Not found in the image scan",
     "DOWNLOAD_CDX": "Download CycloneDX",
     "DOWNLOAD_SPDX": "Download SPDX",
-    "LOAD_ERR": "Failed to get the SBOM."
+    "LOAD_ERR": "Failed to get the SBOM.",
+    "NOT_FOUND": "No scan result. Scan the object first."
   },
   "vulnerability": {
     "advanced_filter": {

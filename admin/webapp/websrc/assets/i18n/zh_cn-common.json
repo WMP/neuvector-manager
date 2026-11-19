@@ -3546,7 +3546,8 @@
     "RUNTIME_HINT": "在镜像扫描中未发现",
     "DOWNLOAD_CDX": "下载 CycloneDX",
     "DOWNLOAD_SPDX": "下载 SPDX",
-    "LOAD_ERR": "获取 SBOM 失败。"
+    "LOAD_ERR": "获取 SBOM 失败。",
+    "NOT_FOUND": "没有扫描结果。请先扫描该对象。"
   },
   "vulnerability": {
     "advanced_filter": {

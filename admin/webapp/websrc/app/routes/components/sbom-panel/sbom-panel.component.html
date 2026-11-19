@@ -7,7 +7,11 @@
     <em class="fa fa-download pe-1"></em>
     {{ 'sbom.DOWNLOAD_CDX' | translate }}
   </button>
-  <button mat-button type="button" (click)="downloadSpdx()">
+  <button
+    mat-button
+    type="button"
+    (click)="downloadSpdx()"
+    [disabled]="downloading">
     <em class="fa fa-download pe-1"></em>
     {{ 'sbom.DOWNLOAD_SPDX' | translate }}
   </button>
@@ -16,7 +20,7 @@
   <app-loading-template></app-loading-template>
 </div>
 <div *ngIf="error" class="text-center p-4">
-  {{ 'sbom.LOAD_ERR' | translate }}
+  {{ error | translate }}
 </div>
 <ag-grid-angular
   *ngIf="!loading && !error"

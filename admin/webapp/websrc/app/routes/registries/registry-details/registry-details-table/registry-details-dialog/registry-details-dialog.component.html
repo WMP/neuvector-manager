@@ -74,7 +74,10 @@
           [vulnerabilities]="imageAndLayers.image.report.vulnerabilities">
         </app-registry-modules>
       </mat-tab>
-      <mat-tab *ngIf="isSbomAuthorized" label="SBOM">
+      <mat-tab *ngIf="isSbomAuthorized">
+        <ng-template mat-tab-label>{{
+          'sbom.TAB_TITLE' | translate
+        }}</ng-template>
         <ng-template matTabContent>
           <div class="mt-2">
             <app-sbom-panel

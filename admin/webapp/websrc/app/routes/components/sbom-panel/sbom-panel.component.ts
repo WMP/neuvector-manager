@@ -54,13 +54,15 @@ export class SbomPanelComponent implements OnInit, OnChanges, OnDestroy {
   @Input() name = '';
   @Input() tableHeight = '300px';
   loading = false;
-  error = false;
+  error = '';
+  downloading = false;
   cdxText = '';
   gridApi?: GridApi;
   private filterText = '';
   gridOptions!: GridOptions;
   private filterSub?: Subscription;
   private fetchSub?: Subscription;
+  private spdxSub?: Subscription;
 
   private columnDefs: ColDef[] = [
     { field: 'name', headerKey: 'sbom.NAME' },
@@ -101,6 +103,8 @@ export class SbomPanelComponent implements OnInit, OnChanges, OnDestroy {
         this.gridApi.setGridOption('quickFilterText', this.filterText);
         this.gridApi.sizeColumnsToFit();
       },
+      // also covers tab animation and parent height changes
+      onGridSizeChanged: event => event.api.sizeColumnsToFit(),
       overlayNoRowsTemplate: this.translate.instant('general.NO_ROWS'),
     };
     this.filterSub = this.quickFilterService.textInput$.subscribe(value => {
@@ -129,6 +133,7 @@ export class SbomPanelComponent implements OnInit, OnChanges, OnDestroy {
   ngOnDestroy(): void {
     this.filterSub?.unsubscribe();
     this.fetchSub?.unsubscribe();
+    this.spdxSub?.unsubscribe();
   }
 
   downloadCdx(): void {
@@ -139,13 +144,19 @@ export class SbomPanelComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   downloadSpdx(): void {
-    this.get('spdx').subscribe({
-      next: text =>
+    this.downloading = true;
+    this.spdxSub = this.get('spdx').subscribe({
+      next: text => {
+        this.downloading = false;
+        this.cd.markForCheck();
         saveAs(
           new Blob([text], { type: 'application/json' }),
           sbomFileName(this.name, 'spdx')
-        ),
+        );
+      },
       error: ({ error }) => {
+        this.downloading = false;
+        this.cd.markForCheck();
         let body = error;
         try {
           // responseType 'text' leaves the JSON error body unparsed
@@ -174,7 +185,7 @@ export class SbomPanelComponent implements OnInit, OnChanges, OnDestroy {
     this.fetchSub?.unsubscribe();
     this.gridApi = undefined;
     this.loading = true;
-    this.error = false;
+    this.error = '';
     this.cdxText = '';
     this.fetchSub = this.get('cyclonedx').subscribe({
       next: text => {
@@ -183,14 +194,14 @@ export class SbomPanelComponent implements OnInit, OnChanges, OnDestroy {
           this.cdxText = text;
           this.gridOptions.rowData = rows;
         } catch {
-          this.error = true;
+          this.error = 'sbom.LOAD_ERR';
         }
         this.loading = false;
         // parents such as the registry dialog use OnPush
         this.cd.markForCheck();
       },
-      error: () => {
-        this.error = true;
+      error: ({ status }) => {
+        this.error = status === 404 ? 'sbom.NOT_FOUND' : 'sbom.LOAD_ERR';
         this.loading = false;
         this.cd.markForCheck();
       },
