@@ -2006,6 +2006,7 @@
       "COMPLIANCE": "合规",
       "CONFIG": "系统配置",
       "VULNERABILITY": "漏洞",
+      "SBOM": "SBOM",
       "FED": "多集群",
       "description": {
         "AUDIT_EVENTS": "访问风险和合规事件日志.",
@@ -2021,6 +2022,7 @@
         "COMPLIANCE": "浏览合规检查结果, 管理合规资料和配置自定义合规脚本.",
         "CONFIG": "管理系统配置",
         "VULNERABILITY": "浏览和配置漏洞管理资料",
+        "SBOM": "查看和下载容器、节点和镜像的软件物料清单 (SBOM)，并搜索组件。",
         "FED": "管理多集群"
       }
     }
@@ -3533,6 +3535,18 @@
       "REMOVE_VERIFIER_OK": "检测器删除成功!",
       "REMOVE_VERIFIER_NG": "检测器删除时发生错误!"
     }
+  },
+  "sbom": {
+    "TAB_TITLE": "SBOM",
+    "NAME": "名称",
+    "VERSION": "版本",
+    "PURL": "软件包 URL",
+    "LICENSES": "许可证",
+    "RUNTIME": "运行时",
+    "RUNTIME_HINT": "在镜像扫描中未发现",
+    "DOWNLOAD_CDX": "下载 CycloneDX",
+    "DOWNLOAD_SPDX": "下载 SPDX",
+    "LOAD_ERR": "获取 SBOM 失败。"
   },
   "vulnerability": {
     "advanced_filter": {

@@ -16,6 +16,7 @@ import {
   VulnerabilityProfile,
   WorkloadCompliance,
 } from '@common/types';
+import { PathConstant } from '@common/constants/path.constant';
 import { UtilsService } from '@common/utils/app.utils';
 import { AuthUtilsService } from '@common/utils/auth.utils';
 import { isVulAccepted } from '@common/utils/common.utils';
@@ -38,6 +39,7 @@ export const containerDetailsTabs = {
   2: 'vulnerabilities',
   3: 'process',
   4: 'stats',
+  5: 'sbom',
 };
 
 @Component({
@@ -80,6 +82,8 @@ export class ContainerDetailsComponent implements OnInit, OnDestroy {
   showAcceptedVuls: boolean = false;
   @ViewChild('acceptedTooltip') acceptedTooltip!: MatTooltip;
   isVulsAuthorized!: boolean;
+  isSbomAuthorized!: boolean;
+  sbomUrl = PathConstant.SBOM_WORKLOAD_URL;
   isWriteVulsAuthorized!: boolean;
   selectedVulScore: String = 'V3';
   get processHistoryMsg() {
@@ -93,7 +97,7 @@ export class ContainerDetailsComponent implements OnInit, OnDestroy {
       : this.tr.instant('enum.SHOW_ACCEPTED_VULS');
   }
   get showFilter(): boolean {
-    return ['compliance', 'vulnerabilities', 'process'].includes(
+    return ['compliance', 'vulnerabilities', 'process', 'sbom'].includes(
       this.activeTab
     );
   }
@@ -141,6 +145,7 @@ export class ContainerDetailsComponent implements OnInit, OnDestroy {
     this.isVulsAuthorized = this.authUtils.getDisplayFlag('vuls_profile');
     this.isWriteVulsAuthorized =
       this.authUtils.getDisplayFlag('write_vuls_profile');
+    this.isSbomAuthorized = this.authUtils.getDisplayFlag('sbom');
   }
 
   ngOnDestroy(): void {

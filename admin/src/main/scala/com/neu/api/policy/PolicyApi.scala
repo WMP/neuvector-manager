@@ -224,6 +224,24 @@ class PolicyApi(resourceService: PolicyService) extends BaseApi {
               }
             }
           } ~
+          path("workload" / "sbom") {
+            get {
+              parameter(Symbol("id"), Symbol("format").?) { (id, format) =>
+                Utils.respondWithWebServerHeaders() {
+                  resourceService.getSbom(tokenId, Seq("workload", id), format)
+                }
+              }
+            }
+          } ~
+          path("host" / "sbom") {
+            get {
+              parameter(Symbol("id"), Symbol("format").?) { (id, format) =>
+                Utils.respondWithWebServerHeaders() {
+                  resourceService.getSbom(tokenId, Seq("host", id), format)
+                }
+              }
+            }
+          } ~
           path("workload") {
             get {
               parameter(Symbol("id").?, Symbol("show").?) { (id, show) =>
@@ -382,6 +400,20 @@ class PolicyApi(resourceService: PolicyService) extends BaseApi {
                   Utils.respondWithWebServerHeaders() {
                     resourceService.getFederatedRepoScanRegistrySummary(tokenId, fedRepo)
                   }
+                }
+              }
+            } ~
+            path("image" / "sbom") {
+              get {
+                parameter(Symbol("name"), Symbol("imageId"), Symbol("format").?) {
+                  (name, imageId, format) =>
+                    Utils.respondWithWebServerHeaders() {
+                      resourceService.getSbom(
+                        tokenId,
+                        Seq("registry", name, "image", imageId),
+                        format
+                      )
+                    }
                 }
               }
             } ~

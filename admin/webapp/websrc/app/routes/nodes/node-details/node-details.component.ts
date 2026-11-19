@@ -16,6 +16,7 @@ import {
   Workload,
   WorkloadCompliance,
 } from '@common/types';
+import { PathConstant } from '@common/constants/path.constant';
 import { UtilsService } from '@common/utils/app.utils';
 import { AuthUtilsService } from '@common/utils/auth.utils';
 import { isVulAccepted } from '@common/utils/common.utils';
@@ -38,6 +39,7 @@ export const nodeDetailsTabs = {
   1: 'compliance',
   2: 'vulnerabilities',
   3: 'containers',
+  4: 'sbom',
 };
 
 @Component({
@@ -76,6 +78,8 @@ export class NodeDetailsComponent implements OnInit {
   showAcceptedVuls: boolean = false;
   showSysContainers: boolean = false;
   isVulsAuthorized!: boolean;
+  isSbomAuthorized!: boolean;
+  sbomUrl = PathConstant.SBOM_HOST_URL;
   isWriteVulsAuthorized!: boolean;
   selectedVulScore: String = 'V3';
   get sysContainersMsg() {
@@ -84,7 +88,7 @@ export class NodeDetailsComponent implements OnInit {
       : this.tr.instant('nodes.containers.HIDE_SYS_NODE');
   }
   get showFilter(): boolean {
-    return ['compliance', 'vulnerabilities', 'containers'].includes(
+    return ['compliance', 'vulnerabilities', 'containers', 'sbom'].includes(
       this.activeTab
     );
   }
@@ -122,6 +126,7 @@ export class NodeDetailsComponent implements OnInit {
     this.isVulsAuthorized = this.authUtils.getDisplayFlag('vuls_profile');
     this.isWriteVulsAuthorized =
       this.authUtils.getDisplayFlag('write_vuls_profile');
+    this.isSbomAuthorized = this.authUtils.getDisplayFlag('sbom');
   }
 
   openRemediation(data: Check) {

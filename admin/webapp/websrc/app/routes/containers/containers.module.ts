@@ -12,6 +12,7 @@ import { QuickFilterModule } from '@components/quick-filter/quick-filter.module'
 import { ComplianceGridModule } from '@components/compliance-grid/compliance-grid.module';
 import { VulnerabilitiesGridModule } from '@components/vulnerabilities-grid/vulnerabilities-grid.module';
 import { ProcessGridModule } from '@components/process-grid/process-grid.module';
+import { SbomPanelModule } from '@components/sbom-panel/sbom-panel.module';
 import { ContainerStatsModule } from '@components/container-stats/container-stats.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ContainerDetailModule } from '@components/container-detail/container-detail.module';
@@ -43,6 +44,7 @@ const routes: Routes = [{ path: '', component: ContainersComponent }];
     ComplianceGridModule,
     VulnerabilitiesGridModule,
     ProcessGridModule,
+    SbomPanelModule,
     QuickFilterModule,
     NgChartsModule,
     AssetsScanReportButtonModule,

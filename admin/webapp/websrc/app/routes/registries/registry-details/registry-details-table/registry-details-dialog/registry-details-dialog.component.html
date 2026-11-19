@@ -74,6 +74,20 @@
           [vulnerabilities]="imageAndLayers.image.report.vulnerabilities">
         </app-registry-modules>
       </mat-tab>
+      <mat-tab *ngIf="isSbomAuthorized" label="SBOM">
+        <ng-template matTabContent>
+          <div class="mt-2">
+            <app-sbom-panel
+              [url]="sbomUrl"
+              [params]="{
+                name: data.selectedRegistry.name,
+                imageId: data.image.image_id,
+              }"
+              [name]="data.image.repository + ':' + data.image.tag"
+              tableHeight="calc(100vh - 404px)"></app-sbom-panel>
+          </div>
+        </ng-template>
+      </mat-tab>
     </mat-tab-group>
   </div>
   <app-remediation-detail-dialog

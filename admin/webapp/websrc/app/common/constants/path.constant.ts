@@ -55,6 +55,9 @@ export class PathConstant {
   public static SCAN_URL = 'scan/workload'; //assets
   public static SCAN_HOST_URL = 'scan/host'; //assets
   public static SCAN_PLATFORM_URL = 'scan/platform'; //assets
+  public static SBOM_WORKLOAD_URL = 'scan/workload/sbom';
+  public static SBOM_HOST_URL = 'scan/host/sbom';
+  public static SBOM_REGISTRY_IMAGE_URL = 'scan/registry/image/sbom';
   public static DOMAIN_URL = 'domain'; //assets
   public static SCAN_CONFIG_URL = 'scan/config'; //assets
   public static SCAN_CONTAINER_URL = 'scan/workload'; //assets

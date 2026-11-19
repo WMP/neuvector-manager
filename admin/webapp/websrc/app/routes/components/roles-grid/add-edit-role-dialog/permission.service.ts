@@ -28,6 +28,7 @@ export class PermissionService {
     rt_policy: this.defaultPermission(),
     admctrl: this.defaultPermission(),
     vulnerability: this.defaultPermission(),
+    sbom: this.defaultPermission(),
     compliance: this.defaultPermission(),
     audit_events: this.defaultPermission(),
     security_events: this.defaultPermission(),

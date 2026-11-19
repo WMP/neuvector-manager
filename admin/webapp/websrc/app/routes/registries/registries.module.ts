@@ -26,6 +26,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RegistryDetailsVulnerabilitiesCellComponent } from './registry-details/registry-details-table/registry-details-vulnerabilities-cell/registry-details-vulnerabilities-cell.component';
 import { TestSettingsDialogComponent } from './registries-table/add-registry-dialog/test-connection-dialog/test-settings-dialog.component';
 import { RegistryDetailsDialogComponent } from './registry-details/registry-details-table/registry-details-dialog/registry-details-dialog.component';
+import { SbomPanelModule } from '@components/sbom-panel/sbom-panel.module';
 import { AdjustableDivModule } from '@components/ui/adjustable-div/adjustable-div.module';
 import { LoadingTemplateModule } from '@components/ui/loading-template/loading-template.module';
 import { ObserveModule } from '@common/directives/observe/observe.module';
@@ -98,6 +99,7 @@ const routes: Routes = [{ path: '', component: RegistriesComponent }];
     MatSnackBarModule,
     MatProgressBarModule,
     AdjustableDivModule,
+    SbomPanelModule,
     LoadingTemplateModule,
     ComplianceGridModule,
     ObserveModule,

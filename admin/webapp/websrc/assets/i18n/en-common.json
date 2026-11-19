@@ -2007,6 +2007,7 @@
       "COMPLIANCE": "Compliance",
       "CONFIG": "System Config",
       "VULNERABILITY": "Vulnerability",
+      "SBOM": "SBOM",
       "FED": "Federation",
       "description": {
         "AUDIT_EVENTS": "Access risk and compliance event logs.",
@@ -2022,6 +2023,7 @@
         "COMPLIANCE": "Review Compliance check results, manage compliance profile and configure custom compliance scripts.",
         "CONFIG": "Manage system configurations.",
         "VULNERABILITY": "Review and configure vulnerability management profile.",
+        "SBOM": "View and download the software bill of materials (SBOM) of workloads, nodes and images, and search components.",
         "FED": "Manage multiple clusters."
       }
     }
@@ -3539,6 +3541,18 @@
       "REMOVE_VERIFIER_OK": "Removed a verifier successfully!",
       "REMOVE_VERIFIER_NG": "Error happens when removing verifier!"
     }
+  },
+  "sbom": {
+    "TAB_TITLE": "SBOM",
+    "NAME": "Name",
+    "VERSION": "Version",
+    "PURL": "Package URL",
+    "LICENSES": "Licenses",
+    "RUNTIME": "Runtime",
+    "RUNTIME_HINT": "Not found in the image scan",
+    "DOWNLOAD_CDX": "Download CycloneDX",
+    "DOWNLOAD_SPDX": "Download SPDX",
+    "LOAD_ERR": "Failed to get the SBOM."
   },
   "vulnerability": {
     "advanced_filter": {

@@ -6,6 +6,7 @@ import { NvCommonModule } from '@common/nvCommon.module';
 import { AdjustableDivModule } from '@components/ui/adjustable-div/adjustable-div.module';
 import { LoadingButtonModule } from '@components/ui/loading-button/loading-button.module';
 import { LoadingTemplateModule } from '@components/ui/loading-template/loading-template.module';
+import { SbomPanelModule } from '@components/sbom-panel/sbom-panel.module';
 import { NodesGridModule } from '@components/nodes-grid/nodes-grid.module';
 import { NodeDetailsComponent } from './node-details/node-details.component';
 import { NodeDetailComponent } from './node-details/node-detail/node-detail.component';
@@ -28,6 +29,7 @@ const routes: Routes = [{ path: '', component: NodesComponent }];
     LoadingButtonModule,
     LoadingTemplateModule,
     NodesGridModule,
+    SbomPanelModule,
     ComplianceGridModule,
     VulnerabilitiesGridModule,
     ContainersGridModule,

@@ -48,6 +48,7 @@ export class MapConstant {
     read_password_profile_3: ['authorization_r', 'config_w'],
     write_vuls_profile: ['vulnerability_w'],
     vuls_profile: ['vulnerability_w', 'vulnerability_r'],
+    sbom: ['sbom_r', 'sbom_w'],
   };
 
   public static EDGE_STATUS_MAP = {

@@ -19,6 +19,8 @@ import org.apache.pekko.http.scaladsl.server.Route
 import org.json4s.*
 import org.json4s.native.JsonMethods.*
 
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 import scala.concurrent.Await
 import scala.concurrent.TimeoutException
 import scala.concurrent.duration.*
@@ -755,6 +757,17 @@ class PolicyService() extends BaseService with DefaultJsonFormats with LazyLoggi
       "",
       tokenId
     )
+  }
+
+  def getSbom(tokenId: String, segments: Seq[String], format: Option[String]): Route = complete {
+    // Encode every user value so it cannot inject path segments or query params.
+    def enc(v: String) = URLEncoder.encode(v, StandardCharsets.UTF_8).replace("+", "%20")
+    val url =
+      s"${baseClusterUri(tokenId)}/scan/${segments.map(enc).mkString("/")}/sbom${
+          format.fold("")(f => s"?format=${enc(f)}")
+        }"
+    logger.info("Getting SBOM with URL {}", url)
+    RestClient.httpRequestWithHeader(url, GET, "", tokenId)
   }
 
   def getRegistryTypes(tokenId: String): Route = complete {

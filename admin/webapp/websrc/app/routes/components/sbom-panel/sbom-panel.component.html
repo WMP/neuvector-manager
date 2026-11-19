@@ -1,0 +1,28 @@
+<div class="d-flex mb-2">
+  <button
+    mat-button
+    type="button"
+    (click)="downloadCdx()"
+    [disabled]="!cdxText">
+    <em class="fa fa-download pe-1"></em>
+    {{ 'sbom.DOWNLOAD_CDX' | translate }}
+  </button>
+  <button mat-button type="button" (click)="downloadSpdx()">
+    <em class="fa fa-download pe-1"></em>
+    {{ 'sbom.DOWNLOAD_SPDX' | translate }}
+  </button>
+</div>
+<div *ngIf="loading" class="sbom-loading">
+  <app-loading-template></app-loading-template>
+</div>
+<div *ngIf="error" class="text-center p-4">
+  {{ 'sbom.LOAD_ERR' | translate }}
+</div>
+<ag-grid-angular
+  *ngIf="!loading && !error"
+  (window:resize)="onResize()"
+  [gridOptions]="gridOptions"
+  class="ag-theme-alpine"
+  [style.height]="tableHeight"
+  style="width: 100%">
+</ag-grid-angular>

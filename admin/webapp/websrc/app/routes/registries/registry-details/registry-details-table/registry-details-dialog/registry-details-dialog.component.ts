@@ -23,6 +23,8 @@ import {
   Vulnerability,
 } from '@common/types';
 import { FormControl } from '@angular/forms';
+import { PathConstant } from '@common/constants/path.constant';
+import { AuthUtilsService } from '@common/utils/auth.utils';
 import { QuickFilterService } from '@components/quick-filter/quick-filter.service';
 import { NotificationService } from '@services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -49,6 +51,8 @@ export class RegistryDetailsDialogComponent implements OnInit, OnDestroy {
   totalCountText = 5;
   filteredCountText = 0;
   filter = new FormControl('');
+  isSbomAuthorized: boolean;
+  sbomUrl = PathConstant.SBOM_REGISTRY_IMAGE_URL;
   private toggleViewSubject$ = new BehaviorSubject<boolean>(false);
   @ViewChild(RemediationDetailDialogComponent)
   remediationDetails!: RemediationDetailDialogComponent;
@@ -66,8 +70,11 @@ export class RegistryDetailsDialogComponent implements OnInit, OnDestroy {
     private cd: ChangeDetectorRef,
     private quickFilterService: QuickFilterService,
     private notificationService: NotificationService,
-    private tr: TranslateService
-  ) {}
+    private tr: TranslateService,
+    authUtils: AuthUtilsService
+  ) {
+    this.isSbomAuthorized = authUtils.getDisplayFlag('sbom');
+  }
 
   imageAndLayer(
     acceptedVulnerabilityStatus: boolean
