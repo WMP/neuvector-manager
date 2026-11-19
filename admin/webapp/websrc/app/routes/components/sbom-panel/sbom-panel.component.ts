@@ -179,6 +179,9 @@ export class SbomPanelComponent implements OnInit, OnChanges, OnDestroy {
 
   private load(): void {
     this.fetchSub?.unsubscribe();
+    // a pending SPDX download belongs to the previous object
+    this.spdxSub?.unsubscribe();
+    this.downloading = false;
     this.gridApi = undefined;
     this.loading = true;
     this.error = '';
