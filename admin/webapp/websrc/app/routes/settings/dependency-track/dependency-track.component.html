@@ -31,7 +31,7 @@
             <mat-hint *ngIf="removeKey && !form.value.api_key">{{
               'sbom.dtrack.KEY_REMOVED_ON_SAVE' | translate
             }}</mat-hint>
-            <mat-hint *ngIf="!removeKey && loaded.api_key_set">{{
+            <mat-hint *ngIf="!removeKey && loaded.api_key_set && !keyNeeded">{{
               'sbom.dtrack.KEY_SAVED' | translate
             }}</mat-hint>
             <mat-hint *ngIf="keyNeeded && !form.value.api_key">{{
@@ -44,6 +44,13 @@
             type="button"
             (click)="markRemoveKey()">
             {{ 'sbom.dtrack.REMOVE_KEY' | translate }}
+          </button>
+          <button
+            *ngIf="canWrite && removeKey"
+            mat-stroked-button
+            type="button"
+            (click)="undoRemoveKey()">
+            {{ 'sbom.dtrack.UNDO_REMOVE_KEY' | translate }}
           </button>
         </div>
         <div class="col-12 col-md-6">
@@ -121,7 +128,8 @@
         {{ preview.project_version }}
       </div>
       <div>
-        {{ 'sbom.dtrack.TAGS' | translate }}: {{ preview.tags.join(', ') }}
+        {{ 'sbom.dtrack.TAGS' | translate }}:
+        {{ (preview.tags || []).join(', ') }}
       </div>
     </div>
 

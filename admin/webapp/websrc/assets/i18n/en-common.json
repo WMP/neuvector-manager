@@ -3580,6 +3580,7 @@
       "API_KEY": "API key",
       "KEY_SAVED": "API key saved",
       "REMOVE_KEY": "Remove key",
+      "UNDO_REMOVE_KEY": "Keep the key",
       "KEY_REMOVED_ON_SAVE": "The key will be removed when you save.",
       "KEY_REQUIRED_URL": "Enter the API key again when you change the URL.",
       "PROJECT_NAME": "Project name",

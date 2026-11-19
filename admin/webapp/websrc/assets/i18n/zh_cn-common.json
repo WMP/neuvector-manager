@@ -3574,6 +3574,7 @@
       "API_KEY": "API 密钥",
       "KEY_SAVED": "API 密钥已保存",
       "REMOVE_KEY": "删除密钥",
+      "UNDO_REMOVE_KEY": "保留密钥",
       "KEY_REMOVED_ON_SAVE": "保存时将删除该密钥。",
       "KEY_REQUIRED_URL": "更改地址时，请重新输入 API 密钥。",
       "PROJECT_NAME": "项目名称",

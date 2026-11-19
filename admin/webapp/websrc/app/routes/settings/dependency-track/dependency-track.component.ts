@@ -132,6 +132,7 @@ export class DependencyTrackComponent implements OnInit {
         next: ({ config }) => {
           this.loaded = config;
           this.removeKey = false;
+          this.preview = null;
           this.form.reset({
             enabled: config.enabled,
             url: config.url,
@@ -168,9 +169,14 @@ export class DependencyTrackComponent implements OnInit {
       error: err =>
         this.notificationService.openError(
           err,
-          this.tr.instant('sbom.dtrack.PREVIEW_ERR')
+          this.tr.instant('sbom.dtrack.LOAD_ERR')
         ),
     });
+  }
+
+  undoRemoveKey(): void {
+    this.removeKey = false;
+    this.form.controls.api_key.updateValueAndValidity();
   }
 
   markRemoveKey(): void {
