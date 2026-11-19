@@ -139,4 +139,18 @@ describe('DependencyTrackComponent', () => {
       'sbom.dtrack.PREVIEW_ERR'
     );
   });
+
+  it('is read-only without the write permission', () => {
+    const getContainers = jasmine.createSpy('getContainers');
+    const ro = new DependencyTrackComponent(
+      { instant: (k: string) => k } as any,
+      { open, openError } as any,
+      { getDisplayFlagByMultiPermission: () => false } as any,
+      { getContainers } as any
+    );
+    ro.ngOnInit();
+    expect(ro.canWrite).toBeFalse();
+    expect(ro.form.disabled).toBeTrue();
+    expect(getContainers).not.toHaveBeenCalled();
+  });
 });

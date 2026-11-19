@@ -116,7 +116,7 @@ export class DependencyTrackComponent implements OnInit {
     return (
       !!this.loaded?.api_key_set &&
       !this.removeKey &&
-      (this.form.controls.url.value || '').trim() !== this.loaded.url
+      (this.form.controls.url.value || '').trim() !== (this.loaded.url || '')
     );
   }
 
@@ -142,7 +142,8 @@ export class DependencyTrackComponent implements OnInit {
             tags: (config.tags || []).join(', '),
             inactive_grace_period: config.inactive_grace_period,
           });
-          if (!this.canWrite) this.form.disable();
+          // no events: the url listener would revalidate and re-enable the form status
+          if (!this.canWrite) this.form.disable({ emitEvent: false });
           this.loading = false;
         },
         error: err => {
@@ -166,11 +167,8 @@ export class DependencyTrackComponent implements OnInit {
             domain: w.domain,
           }));
       },
-      error: err =>
-        this.notificationService.openError(
-          err,
-          this.tr.instant('sbom.dtrack.LOAD_ERR')
-        ),
+      // without workload read permission the preview list just stays empty
+      error: () => (this.workloads = []),
     });
   }
 
