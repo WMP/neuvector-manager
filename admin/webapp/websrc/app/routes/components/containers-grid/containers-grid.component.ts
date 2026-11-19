@@ -305,29 +305,34 @@ export class ContainersGridComponent implements OnInit {
     }
     this.gridApi.sizeColumnsToFit();
     this.gridApi.getDisplayedRowAtIndex(0)?.setSelected(true);
-    if (this.linkedContainer) {
-      this.gridApi.forEachNode((node, index) => {
-        if (
-          this.linkedContainer === node.data.brief.display_name ||
-          this.linkedContainer === node.data.brief.id
-        ) {
-          // a linked child container is hidden until its parent is expanded
-          const parent = node.data.parent_id
-            ? this.gridApi.getRowNode(node.data.parent_id)
-            : null;
-          if (parent && !parent.data.visible) {
-            parent.data.visible = true;
-            parent.data.child_ids.forEach(id => {
-              const child = this.gridApi.getRowNode(id);
-              if (child) child.data.visible = true;
-            });
-            this.gridApi.onFilterChanged();
-          }
-          node.setSelected(true);
-          this.gridApi.ensureNodeVisible(node);
-        }
+    if (this.linkedContainer) this.selectLinked(this.gridApi);
+  }
+
+  // Selects the linked row once it is loaded (rows arrive in pages); an id match wins over a name match.
+  private selectLinked(api: GridApi): void {
+    let node = api.getRowNode(this.linkedContainer);
+    if (!node) {
+      api.forEachNode(n => {
+        if (!node && n.data.brief.display_name === this.linkedContainer)
+          node = n;
       });
     }
+    if (!node) return;
+    // a linked child container is hidden until its parent is expanded
+    const parent = node.data.parent_id
+      ? api.getRowNode(node.data.parent_id)
+      : null;
+    if (parent && !parent.data.visible) {
+      parent.data.visible = true;
+      parent.data.child_ids.forEach(id => {
+        const child = api.getRowNode(id);
+        if (child) child.data.visible = true;
+      });
+      api.onFilterChanged();
+    }
+    node.setSelected(true);
+    api.ensureNodeVisible(node);
+    this.linkedContainer = '';
   }
 
   onRowSelected(params: RowSelectedEvent) {
@@ -341,6 +346,7 @@ export class ContainersGridComponent implements OnInit {
       force: true,
       columns: ['brief.display_name'],
     });
+    if (this.linkedContainer) this.selectLinked(event.api);
     const selected = this.selectedContainerSubject$.value,
       node = selected
         ? event.api.getRowNode(selected.brief.id)
