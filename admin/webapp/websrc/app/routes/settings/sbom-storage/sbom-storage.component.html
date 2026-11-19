@@ -134,7 +134,7 @@
     <button
       mat-button
       type="button"
-      [disabled]="!selected || downloading"
+      [disabled]="!selected?.registry || downloading"
       (click)="download()">
       <em class="fa fa-download pe-1"></em>
       {{ 'sbom.s3.DOWNLOAD' | translate }}

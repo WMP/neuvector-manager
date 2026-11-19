@@ -261,6 +261,7 @@ export class SbomStorageComponent implements OnInit {
     if (this.form.invalid || this.saving) return;
     // turning deletion on removes objects from the bucket: confirm it first
     if (this.form.value.delete_unused && !this.loaded?.delete_unused) {
+      this.saving = true; // blocks a second dialog until this one closes
       this.dialog
         .open(ConfirmDialogComponent, {
           width: '80%',
@@ -271,7 +272,10 @@ export class SbomStorageComponent implements OnInit {
           },
         })
         .afterClosed()
-        .subscribe(ok => ok && this.patch());
+        .subscribe(ok => {
+          this.saving = false;
+          if (ok) this.patch();
+        });
       return;
     }
     this.patch();
@@ -302,7 +306,7 @@ export class SbomStorageComponent implements OnInit {
 
   download(): void {
     const row = this.selected;
-    if (!row || this.downloading) return;
+    if (!row?.registry || this.downloading) return;
     this.downloading = true;
     GlobalVariable.http
       .get(PathConstant.SBOM_REGISTRY_IMAGE_URL, {
