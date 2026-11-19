@@ -79,7 +79,7 @@ export class SbomComponentsComponent {
       rows: [],
       columnDefs: this.cols([
         ['sbom.REGISTRY', 'registry'],
-        ['sbom.IMAGES', p => p.data.images.join(', ')],
+        ['sbom.IMAGES', p => (p.data.images || []).join(', ')],
         ['sbom.NAMESPACE', 'domain'],
       ]),
       onRowClicked: row => {
@@ -113,7 +113,9 @@ export class SbomComponentsComponent {
 
   get canSearch(): boolean {
     const { name, purl } = this.form.value;
-    return !this.searching && !!(name?.trim() || purl?.trim());
+    return (
+      !this.searching && this.form.valid && !!(name?.trim() || purl?.trim())
+    );
   }
 
   search(): void {
@@ -127,7 +129,9 @@ export class SbomComponentsComponent {
       .get<any>(PathConstant.SBOM_COMPONENT_URL, { params })
       .subscribe({
         next: res => {
-          this.groups.forEach((g, i) => (this.sections[i].rows = res[g] || []));
+          this.groups.forEach(
+            (g, i) => (this.sections[i].rows = res?.[g] || [])
+          );
           this.searched = true;
           this.searching = false;
         },

@@ -311,6 +311,18 @@ export class ContainersGridComponent implements OnInit {
           this.linkedContainer === node.data.brief.display_name ||
           this.linkedContainer === node.data.brief.id
         ) {
+          // a linked child container is hidden until its parent is expanded
+          const parent = node.data.parent_id
+            ? this.gridApi.getRowNode(node.data.parent_id)
+            : null;
+          if (parent && !parent.data.visible) {
+            parent.data.visible = true;
+            parent.data.child_ids.forEach(id => {
+              const child = this.gridApi.getRowNode(id);
+              if (child) child.data.visible = true;
+            });
+            this.gridApi.onFilterChanged();
+          }
           node.setSelected(true);
           this.gridApi.ensureNodeVisible(node);
         }

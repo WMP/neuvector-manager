@@ -202,10 +202,11 @@ export class NodesGridComponent implements OnInit {
       });
     }
     this.gridApi.sizeColumnsToFit();
-    (
+    const node =
       this.gridApi.getRowNode(this.linkedNode) ||
-      this.gridApi.getDisplayedRowAtIndex(0)
-    )?.setSelected(true);
+      this.gridApi.getDisplayedRowAtIndex(0);
+    node?.setSelected(true);
+    if (node) this.gridApi.ensureNodeVisible(node, 'middle');
   }
 
   onRowSelected(params: RowSelectedEvent) {
