@@ -239,6 +239,27 @@ class PolicyApi(resourceService: PolicyService) extends BaseApi {
                 }
               }
             }
+          } ~
+          path("s3") {
+            get {
+              Utils.respondWithWebServerHeaders() {
+                resourceService.getSbomS3(tokenId)
+              }
+            } ~
+            patch {
+              entity(as[String]) { body =>
+                Utils.respondWithWebServerHeaders() {
+                  resourceService.updateSbomS3(tokenId, body)
+                }
+              }
+            }
+          } ~
+          path("s3" / "images") {
+            get {
+              Utils.respondWithWebServerHeaders() {
+                resourceService.getSbomS3Images(tokenId)
+              }
+            }
           }
         } ~
         pathPrefix("scan") {

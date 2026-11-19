@@ -15,6 +15,7 @@ export class SettingsComponent implements OnInit {
   isAuthenticationAuth!: boolean;
   isNamespaceUser!: boolean;
   canReadSbom!: boolean;
+  canViewSbomStorage!: boolean;
 
   get isWorker() {
     return GlobalVariable.isRemote;
@@ -55,6 +56,8 @@ export class SettingsComponent implements OnInit {
     this.canReadSbom =
       this.authUtils.getDisplayFlagByMultiPermission('sbom_global_read') ||
       this.authUtils.getDisplayFlagByMultiPermission('write_sbom');
+    // The stored-SBOM list needs sbom in any domain.
+    this.canViewSbomStorage = this.authUtils.getDisplayFlag('sbom');
     this.isNamespaceUser = this.authUtils.userPermission.isNamespaceUser;
   }
 

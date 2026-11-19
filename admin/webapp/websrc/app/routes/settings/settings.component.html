@@ -90,5 +90,19 @@
         }}</mat-card-subtitle>
       </mat-card>
     </a>
+    <a
+      [routerLink]="!canViewSbomStorage ? ['./'] : ['sbom-storage']"
+      class="settings__link col-md-12 col-lg-6 col-xl-4"
+      [class.disabled]="!canViewSbomStorage">
+      <mat-card class="settings__card" [class.disabled]="!canViewSbomStorage">
+        <div
+          class="settings__image--config"
+          [class.disabled]="!canViewSbomStorage"></div>
+        <mat-card-title>{{ 'sbom.s3.TITLE' | translate }}</mat-card-title>
+        <mat-card-subtitle>{{
+          'sbom.s3.DESCRIPTION' | translate
+        }}</mat-card-subtitle>
+      </mat-card>
+    </a>
   </div>
 </router-outlet>

@@ -61,6 +61,8 @@ export class PathConstant {
   public static SBOM_COMPONENT_URL = 'scan/component';
   public static SBOM_DTRACK_URL = 'sbom/dependency_track';
   public static SBOM_DTRACK_PREVIEW_URL = 'sbom/dependency_track/preview';
+  public static SBOM_S3_URL = 'sbom/s3';
+  public static SBOM_S3_IMAGES_URL = 'sbom/s3/images';
   public static DOMAIN_URL = 'domain'; //assets
   public static SCAN_CONFIG_URL = 'scan/config'; //assets
   public static SCAN_CONTAINER_URL = 'scan/workload'; //assets

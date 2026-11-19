@@ -817,6 +817,37 @@ class PolicyService() extends BaseService with DefaultJsonFormats with LazyLoggi
     )
   }
 
+  // The body holds the S3 secret key, so it is never logged.
+  def getSbomS3(tokenId: String): Route = complete {
+    logger.info("Getting SBOM S3 config")
+    RestClient.httpRequestWithHeader(
+      s"${baseClusterUri(tokenId)}/sbom/s3",
+      GET,
+      "",
+      tokenId
+    )
+  }
+
+  def updateSbomS3(tokenId: String, body: String): Route = complete {
+    logger.info("Updating SBOM S3 config")
+    RestClient.httpRequestWithHeader(
+      s"${baseClusterUri(tokenId)}/sbom/s3",
+      PATCH,
+      body,
+      tokenId
+    )
+  }
+
+  def getSbomS3Images(tokenId: String): Route = complete {
+    logger.info("Getting stored SBOM list")
+    RestClient.httpRequestWithHeader(
+      s"${baseClusterUri(tokenId)}/sbom/s3/images",
+      GET,
+      "",
+      tokenId
+    )
+  }
+
   def getRegistryTypes(tokenId: String): Route = complete {
     logger.info("Getting registry types")
     RestClient.httpRequestWithHeader(

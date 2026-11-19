@@ -39,6 +39,13 @@ const routes: Routes = [
         m => m.DependencyTrackModule
       ),
   },
+  {
+    path: 'sbom-storage',
+    loadChildren: () =>
+      import('./sbom-storage/sbom-storage.module').then(
+        m => m.SbomStorageModule
+      ),
+  },
   { path: '**', redirectTo: '' },
 ];
 
