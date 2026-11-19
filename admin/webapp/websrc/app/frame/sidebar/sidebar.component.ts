@@ -6,6 +6,7 @@ import { MenuService } from '@core/menu/menu.service';
 import { SwitchersService } from '@core/switchers/switchers.service';
 import { GlobalVariable } from '@common/variables/global.variable';
 import { GlobalConstant } from '@common/constants/global.constant';
+import { AuthUtilsService } from '@common/utils/auth.utils';
 
 @Component({
   standalone: false,
@@ -25,7 +26,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   constructor(
     public menu: MenuService,
     public switchers: SwitchersService,
-    public injector: Injector
+    public injector: Injector,
+    private authUtils: AuthUtilsService
   ) {
     this.menuItems = menu.getMenu();
   }
@@ -41,6 +43,13 @@ export class SidebarComponent implements OnInit, OnDestroy {
         this.menuItems,
         'assets',
         'namespaces'
+      );
+    }
+    if (!this.authUtils.getDisplayFlag('sbom')) {
+      this.menuItems = this.removeSubMenu(
+        this.menuItems,
+        'security risks',
+        'components'
       );
     }
 

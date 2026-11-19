@@ -18,6 +18,7 @@ import { ScanService } from '@services/scan.service';
 import { interval, Subject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { GlobalVariable } from '@common/variables/global.variable';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   standalone: false,
@@ -50,6 +51,7 @@ export class NodesComponent implements OnInit, OnDestroy {
   stopFullScan$ = new Subject();
   stopNodeScan$ = new Subject();
   selectedNode!: Host;
+  linkedNode: string = '';
 
   get auto_scan() {
     return this.autoScan.value;
@@ -64,8 +66,13 @@ export class NodesComponent implements OnInit, OnDestroy {
     private notificationService: NotificationService,
     private authUtils: AuthUtilsService,
     private tr: TranslateService,
-    private cd: ChangeDetectorRef
-  ) {}
+    private cd: ChangeDetectorRef,
+    private route: ActivatedRoute
+  ) {
+    this.route.queryParams.subscribe(params => {
+      this.linkedNode = decodeURIComponent(params['node'] || '');
+    });
+  }
 
   ngOnInit(): void {
     this.isAutoScanAuthorized = this.authUtils.getDisplayFlag('runtime_scan');

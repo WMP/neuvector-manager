@@ -307,7 +307,10 @@ export class ContainersGridComponent implements OnInit {
     this.gridApi.getDisplayedRowAtIndex(0)?.setSelected(true);
     if (this.linkedContainer) {
       this.gridApi.forEachNode((node, index) => {
-        if (this.linkedContainer === node.data.brief.display_name) {
+        if (
+          this.linkedContainer === node.data.brief.display_name ||
+          this.linkedContainer === node.data.brief.id
+        ) {
           node.setSelected(true);
           this.gridApi.ensureNodeVisible(node);
         }

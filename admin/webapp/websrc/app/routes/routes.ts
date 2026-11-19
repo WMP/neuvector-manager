@@ -132,6 +132,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'components',
+        loadChildren: () =>
+          import('./sbom-components/sbom-components.module').then(
+            m => m.SbomComponentsModule
+          ),
+      },
+      {
         path: 'cveProfile',
         loadChildren: () =>
           import('./vulnerability-profile/vulnerability-profile.module').then(

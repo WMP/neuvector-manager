@@ -3553,7 +3553,25 @@
     "DOWNLOAD_CDX": "Download CycloneDX",
     "DOWNLOAD_SPDX": "Download SPDX",
     "LOAD_ERR": "Failed to get the SBOM.",
-    "NOT_FOUND": "No scan result. Scan the object first."
+    "NOT_FOUND": "No scan result. Scan the object first.",
+    "COMPONENTS": "Components",
+    "SEARCH": "Search",
+    "NAME_OR_PURL_REQUIRED": "Enter a name or a package URL.",
+    "VERSION_HINT": "Examples: 2.17.1, <2.17.1, >=1.0, <2.0",
+    "SEARCH_BUSY": "Another component search is running. Try again later.",
+    "SEARCH_ERR": "Failed to search components.",
+    "PODS": "Pods",
+    "NODES": "Nodes",
+    "REGISTRY_IMAGES": "Registry images",
+    "RUNNING_IMAGES": "Images of running pods",
+    "POD": "Pod",
+    "CONTAINER": "Container",
+    "NAMESPACE": "Namespace",
+    "IMAGE": "Image",
+    "IMAGES": "Images",
+    "REGISTRY": "Registry",
+    "WORKLOADS": "Pods",
+    "COMPONENTS_FOUND": "Components"
   },
   "vulnerability": {
     "advanced_filter": {

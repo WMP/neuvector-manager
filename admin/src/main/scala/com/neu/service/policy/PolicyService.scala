@@ -759,9 +759,25 @@ class PolicyService() extends BaseService with DefaultJsonFormats with LazyLoggi
     )
   }
 
+  // Encode every user value so it cannot inject path segments or query params.
+  private def enc(v: String): String =
+    URLEncoder.encode(v, StandardCharsets.UTF_8).replace("+", "%20")
+
+  def searchComponents(
+    tokenId: String,
+    name: Option[String],
+    purl: Option[String],
+    version: Option[String]
+  ): Route = complete {
+    val query = Seq("name" -> name, "purl" -> purl, "version" -> version)
+      .collect { case (k, Some(v)) => s"$k=${enc(v)}" }
+      .mkString("&")
+    val url = s"${baseClusterUri(tokenId)}/scan/component?$query"
+    logger.info("Searching components with URL {}", url)
+    RestClient.httpRequestWithHeader(url, GET, "", tokenId)
+  }
+
   def getSbom(tokenId: String, segments: Seq[String], format: Option[String]): Route = complete {
-    // Encode every user value so it cannot inject path segments or query params.
-    def enc(v: String) = URLEncoder.encode(v, StandardCharsets.UTF_8).replace("+", "%20")
     val url =
       s"${baseClusterUri(tokenId)}/scan/${segments.map(enc).mkString("/")}/sbom${
           format.fold("")(f => s"?format=${enc(f)}")

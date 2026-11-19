@@ -41,6 +41,7 @@
           <app-nodes-grid
             [gridHeight]="height - 85"
             [isScanAuthorized]="isAutoScanAuthorized"
+            [linkedNode]="linkedNode"
             (scan)="configScan($event)">
           </app-nodes-grid>
         </mat-card>

@@ -35,6 +35,7 @@ export class NodesGridComponent implements OnInit {
   @Input() isMemberData: boolean = false;
   @Input() rowData!: Array<Host>;
   @Input() source!: string;
+  @Input() linkedNode: string = '';
   @Output() scan = new EventEmitter<Host>();
   @Input() useQuickFilterService: boolean = false;
   gridOptions!: GridOptions;
@@ -201,7 +202,10 @@ export class NodesGridComponent implements OnInit {
       });
     }
     this.gridApi.sizeColumnsToFit();
-    this.gridApi.getDisplayedRowAtIndex(0)?.setSelected(true);
+    (
+      this.gridApi.getRowNode(this.linkedNode) ||
+      this.gridApi.getDisplayedRowAtIndex(0)
+    )?.setSelected(true);
   }
 
   onRowSelected(params: RowSelectedEvent) {
@@ -214,7 +218,8 @@ export class NodesGridComponent implements OnInit {
     const selected = this.selectedNodeSubject$.value,
       node = selected
         ? event.api.getRowNode(selected.id)
-        : event.api.getDisplayedRowAtIndex(0);
+        : event.api.getRowNode(this.linkedNode) ||
+          event.api.getDisplayedRowAtIndex(0);
     node?.setSelected(true);
     setTimeout(() => {
       this.gridApi.ensureNodeVisible(node, 'middle');

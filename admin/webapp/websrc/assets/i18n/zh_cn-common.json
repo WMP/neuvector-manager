@@ -3547,7 +3547,25 @@
     "DOWNLOAD_CDX": "下载 CycloneDX",
     "DOWNLOAD_SPDX": "下载 SPDX",
     "LOAD_ERR": "获取 SBOM 失败。",
-    "NOT_FOUND": "没有扫描结果。请先扫描该对象。"
+    "NOT_FOUND": "没有扫描结果。请先扫描该对象。",
+    "COMPONENTS": "组件",
+    "SEARCH": "搜索",
+    "NAME_OR_PURL_REQUIRED": "请输入名称或软件包 URL。",
+    "VERSION_HINT": "示例：2.17.1、<2.17.1、>=1.0, <2.0",
+    "SEARCH_BUSY": "另一个组件搜索正在运行。请稍后再试。",
+    "SEARCH_ERR": "搜索组件失败。",
+    "PODS": "Pod",
+    "NODES": "节点",
+    "REGISTRY_IMAGES": "仓库镜像",
+    "RUNNING_IMAGES": "运行中 Pod 的镜像",
+    "POD": "Pod",
+    "CONTAINER": "容器",
+    "NAMESPACE": "命名空间",
+    "IMAGE": "镜像",
+    "IMAGES": "镜像",
+    "REGISTRY": "仓库",
+    "WORKLOADS": "Pod",
+    "COMPONENTS_FOUND": "组件"
   },
   "vulnerability": {
     "advanced_filter": {

@@ -100,6 +100,11 @@ const SECURITY_RISKS = {
       link: '/scan',
     },
     {
+      text: 'Components',
+      translate: 'sbom.COMPONENTS',
+      link: '/components',
+    },
+    {
       text: 'Vulnerability Profile',
       translate: 'cveProfile.TITLE',
       link: '/cveProfile',

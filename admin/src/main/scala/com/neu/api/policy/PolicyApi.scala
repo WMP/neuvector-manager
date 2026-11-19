@@ -224,6 +224,16 @@ class PolicyApi(resourceService: PolicyService) extends BaseApi {
               }
             }
           } ~
+          path("component") {
+            get {
+              parameter(Symbol("name").?, Symbol("purl").?, Symbol("version").?) {
+                (name, purl, version) =>
+                  Utils.respondWithWebServerHeaders() {
+                    resourceService.searchComponents(tokenId, name, purl, version)
+                  }
+              }
+            }
+          } ~
           path("workload" / "sbom") {
             get {
               parameter(Symbol("id"), Symbol("format").?) { (id, format) =>
