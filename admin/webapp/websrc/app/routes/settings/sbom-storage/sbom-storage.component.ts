@@ -133,7 +133,8 @@ export class SbomStorageComponent implements OnInit {
     {
       field: 'size',
       headerKey: 'sbom.s3.COL_SIZE',
-      valueFormatter: p => new BytesPipe().transform(String(p.value)),
+      valueFormatter: p =>
+        new BytesPipe().transform(String(p.value)) || `${p.value ?? 0} B`,
     },
     {
       field: 'last_modified',
