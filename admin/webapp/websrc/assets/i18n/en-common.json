@@ -3598,7 +3598,7 @@
       "SKIPPED": "Skipped",
       "SYMBOLS": "You can use these symbols in the project name, version and tags: {cluster}, {rancher.project}, {namespace}, {replicaset}, {service}, {pod}, {container}, {image}, {digest}, {pod.metadata.labels.KEY}, {namespace.metadata.labels.KEY}. {rancher.project} is the Rancher project ID from the namespace label field.cattle.io/projectId.",
       "HELP_TAGS_LOWERCASE": "Dependency-Track stores tag names in lower case.",
-      "HELP_KEY_PERMISSIONS": "The API key needs these permissions: BOM_UPLOAD, PROJECT_CREATION_UPLOAD, VIEW_PORTFOLIO and PORTFOLIO_MANAGEMENT. Without PORTFOLIO_MANAGEMENT, NeuVector sends projects without parent projects.",
+      "HELP_KEY_PERMISSIONS": "The API key needs BOM_UPLOAD, PROJECT_CREATION_UPLOAD and VIEW_PORTFOLIO. Also give it PORTFOLIO_MANAGEMENT: without it, NeuVector sends projects without parent projects and cannot mark projects as inactive.",
       "HELP_MIN_VERSION": "The minimum Dependency-Track version is 4.12.7.",
       "HELP_RENAME": "When you change the template, or when the new default template is used in a namespace of a Rancher project, the project names change. The old projects stay in Dependency-Track: delete them manually, or save the old template to keep the old names.",
       "HELP_DEFAULT_TEMPLATE": "The default project name is {cluster}/{rancher.project}/{namespace}/{replicaset}/{container}.",

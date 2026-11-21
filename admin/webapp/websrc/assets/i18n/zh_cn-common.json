@@ -3592,7 +3592,7 @@
       "SKIPPED": "已跳过",
       "SYMBOLS": "可以在项目名称、版本和标签中使用以下符号：{cluster}、{rancher.project}、{namespace}、{replicaset}、{service}、{pod}、{container}、{image}、{digest}、{pod.metadata.labels.KEY}、{namespace.metadata.labels.KEY}。{rancher.project} 是命名空间标签 field.cattle.io/projectId 中的 Rancher 项目 ID。",
       "HELP_TAGS_LOWERCASE": "Dependency-Track 会将标签名称转换为小写。",
-      "HELP_KEY_PERMISSIONS": "API 密钥需要以下权限：BOM_UPLOAD、PROJECT_CREATION_UPLOAD、VIEW_PORTFOLIO 和 PORTFOLIO_MANAGEMENT。没有 PORTFOLIO_MANAGEMENT 时，NeuVector 发送的项目没有父项目。",
+      "HELP_KEY_PERMISSIONS": "API 密钥需要 BOM_UPLOAD、PROJECT_CREATION_UPLOAD 和 VIEW_PORTFOLIO 权限。还请授予 PORTFOLIO_MANAGEMENT：没有该权限时，NeuVector 发送的项目没有父项目，并且无法将项目标记为非活动。",
       "HELP_MIN_VERSION": "Dependency-Track 的最低版本为 4.12.7。",
       "HELP_RENAME": "更改模板时，或在属于 Rancher 项目的命名空间中使用新的默认模板时，项目名称会改变。旧项目会保留在 Dependency-Track 中：请手动删除它们，或保存旧模板以保留旧名称。",
       "HELP_DEFAULT_TEMPLATE": "默认项目名称为 {cluster}/{rancher.project}/{namespace}/{replicaset}/{container}。",
