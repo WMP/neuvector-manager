@@ -23,6 +23,14 @@ export interface DtrackConfig {
   inactive_grace_period: number;
 }
 
+// DT project hierarchy from the root down to the project itself
+export function projectPath(p: {
+  parents?: string[];
+  project_name: string;
+}): string[] {
+  return [...(p.parents || []), p.project_name];
+}
+
 // "a, b,,c" -> ["a","b","c"]; tags cannot contain commas
 export function splitTags(text: string | null): string[] {
   return (text || '')
@@ -85,7 +93,9 @@ export class DependencyTrackComponent implements OnInit {
   workloads: { id: string; name: string; domain: string }[] = [];
   workloadCtrl = new FormControl('');
   previewing = false;
+  projectPath = projectPath;
   preview: {
+    parents?: string[];
     project_name: string;
     project_version: string;
     tags: string[];

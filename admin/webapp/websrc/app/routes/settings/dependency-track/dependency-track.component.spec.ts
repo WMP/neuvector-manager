@@ -2,6 +2,7 @@ import { of, throwError } from 'rxjs';
 import { GlobalVariable } from '@common/variables/global.variable';
 import {
   buildDtrackPatch,
+  projectPath,
   DependencyTrackComponent,
 } from './dependency-track.component';
 
@@ -152,5 +153,12 @@ describe('DependencyTrackComponent', () => {
     expect(ro.canWrite).toBeFalse();
     expect(ro.form.disabled).toBeTrue();
     expect(getContainers).not.toHaveBeenCalled();
+  });
+
+  it('lists the project hierarchy from the root', () => {
+    expect(
+      projectPath({ parents: ['prod', 'prod/ns'], project_name: 'prod/ns/c' })
+    ).toEqual(['prod', 'prod/ns', 'prod/ns/c']);
+    expect(projectPath({ project_name: 'flat' } as any)).toEqual(['flat']);
   });
 });

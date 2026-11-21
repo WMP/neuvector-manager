@@ -120,9 +120,14 @@
       <div *ngIf="preview.skipped_reason">
         {{ 'sbom.dtrack.SKIPPED' | translate }}: {{ preview.skipped_reason }}
       </div>
-      <div>
-        {{ 'sbom.dtrack.PROJECT_NAME' | translate }}: {{ preview.project_name }}
-      </div>
+      <ng-container *ngIf="preview.project_name">
+        <div>{{ 'sbom.dtrack.HIERARCHY' | translate }}:</div>
+        <div
+          *ngFor="let name of projectPath(preview); let i = index"
+          [style.padding-left.rem]="i + 1">
+          {{ name }}
+        </div>
+      </ng-container>
       <div>
         {{ 'sbom.dtrack.PROJECT_VERSION' | translate }}:
         {{ preview.project_version }}
@@ -135,6 +140,9 @@
 
     <ul class="dtrack__help mt-3">
       <li>{{ 'sbom.dtrack.SYMBOLS' | translate }}</li>
+      <li>{{ 'sbom.dtrack.HELP_LEVELS' | translate }}</li>
+      <li>{{ 'sbom.dtrack.HELP_DEFAULT_TEMPLATE' | translate }}</li>
+      <li>{{ 'sbom.dtrack.HELP_RENAME' | translate }}</li>
       <li>{{ 'sbom.dtrack.HELP_TAGS_LOWERCASE' | translate }}</li>
       <li>{{ 'sbom.dtrack.HELP_KEY_PERMISSIONS' | translate }}</li>
       <li>{{ 'sbom.dtrack.HELP_MIN_VERSION' | translate }}</li>
